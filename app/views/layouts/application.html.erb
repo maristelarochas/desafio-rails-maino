@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Apenas para DESENVOLVIMENTO: Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <title><%= content_for(:title) || "Movie Catalog" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,9 +21,18 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <script type="module">
+    import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo-rails';
+    </script>
   </head>
 
   <body>
-    <%= yield %>
+    <body class="bg-gray-100">
+    <%= render 'layouts/navbar' %>
+    <main class="pt-16 px-4 py-8">
+      <%= yield %>
+    </main>
   </body>
 </html>
