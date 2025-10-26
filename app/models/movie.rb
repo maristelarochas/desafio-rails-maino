@@ -8,4 +8,6 @@ class Movie < ApplicationRecord
   validates :release_year, numericality: { only_integer: true, greater_than_or_equal_to: 1888 }, allow_nil: true
   validates :duration, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   validates :director, length: { maximum: 100 }, allow_nil: true
+
+  has_many :comments, dependent: :destroy
 end

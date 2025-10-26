@@ -9,3 +9,42 @@
       </ul>
     </div>
   <% end %>
+
+  <div>
+    <%= form.label :title, "Título *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :title, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2",
+    placeholder: "Ex: Matrix" %>
+  </div>
+
+  <div>
+    <%= form.label :synopsis, "Sinopse *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :synopsis, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2",
+    placeholder: "Ex: Em um futuro distópico..." %>
+  </div>
+
+  <div>
+    <%= form.label :release_year, "Ano de Lançamento *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :release_year,
+    class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2",
+    placeholder: "Ex: 1999", min: 1888, max: Time.current.year %>
+    min: 1888,
+    max: Time.current.year %>
+  </div>
+
+  <div>
+    <%= form.label :duration, "Duração *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :duration, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2",
+    placeholder: "Ex: 120", min: 1 %>
+  </div>
+
+  <div>
+    <%= form.label :director, "Diretor *", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :director, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2",
+    placeholder: "Ex: Lana Wachowski" %>
+  </div>
+
+  <div class="flex justify-end space-x-4">
+    <%= link_to "Cancelar", movies_path, class: "bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400" %>
+    <%= form.submit "Salvar", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
+  </div>
+<% end%>
