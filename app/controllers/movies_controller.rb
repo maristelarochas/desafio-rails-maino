@@ -15,11 +15,11 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params)
+    @movie = current_user.movies.build(movie_params)
     if @movie.save
       redirect_to @movie, notice: "Movie was successfully saved!"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +46,7 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :synopsis, :rating, :release_date)
+    params.require(:movie).permit(:title, :synopsis, :release_year, :duration, :director, :poster)
   end
 
   def authorize_user!

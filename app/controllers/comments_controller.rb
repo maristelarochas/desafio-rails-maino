@@ -1,10 +1,13 @@
 class CommentsController < ApplicationController
+  before_action :set_movie
   def create
     @comment = @movie.comments.build(comment_params)
 
     if user_signed_in?
       @comment.user = current_user
-      @comment.author_name = nil
+    else
+      redirect_to new_user_session_path, alert: "Voce precisa estar logado para comentar."
+      return
     end
 
     if @comment.save
@@ -17,10 +20,10 @@ class CommentsController < ApplicationController
   private
 
   def set_movie
-    params.require(:comment).permit(:content, :author_name)
+    @movie = Movie.find(params[:movie_id])
   end
 
   def comment_params
-    params.require(:comment).permit(:content, :author_name)
+    params.require(:comment).permit(:content)
   end
 end

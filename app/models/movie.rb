@@ -10,4 +10,21 @@ class Movie < ApplicationRecord
   validates :director, length: { maximum: 100 }, allow_nil: true
 
   has_many :comments, dependent: :destroy
+
+  has_one_attached :poster
+  validate :poster_format
+
+  private
+
+  def poster_format
+    return unless poster.attached?
+
+    unless poster.content_type.in?(%w[image/jpeg image/png image/gif])
+      errors.add(:poster, "precisa ser uma imagem JPEG, PNG ou GIF")
+    end
+
+    if poster.byte_size > 5.megabytes
+      errors.add(:poster, "deve ser menor que 5MB")
+    end
+  end
 end
