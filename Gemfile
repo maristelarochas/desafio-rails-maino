@@ -57,6 +57,7 @@ group :development, :test do
   gem "pundit"
   gem "simple_form"
   gem "letter_opener"
+  gem "faker"
 end
 
 group :development do

@@ -8,14 +8,20 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.find_by!(email: 'johndoe@email.com') do |user|
+user = User.find_or_create_by!(email: 'johndoe@email.com') do |user|
   user.name = 'John Doe'
   user.password = 'senha123'
 end
 
-user = User.find_by!(email: 'janedoe@email.com') do |user|
+user = User.find_or_create_by!(email: 'janedoe@email.com') do |user|
   user.name = 'Jane Doe'
   user.password = 'senha123'
+end
+
+categories = [ "Ação", "Comédia", "Drama", "Terror", "Ficção Científica", "Romance", "Animação", "Documentário", "Fantasia", "Suspense" ]
+
+categories.each do |category_name|
+  Category.find_or_create_by!(name: category_name)
 end
 
 10.times do |i|

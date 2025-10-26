@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_26_142503) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_26_222831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_142503) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.string "author"
@@ -51,6 +57,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_142503) do
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_comments_on_movie_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "movie_categories", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_movie_categories_on_category_id"
+    t.index ["movie_id"], name: "index_movie_categories_on_movie_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -82,5 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_26_142503) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "movies"
   add_foreign_key "comments", "users"
+  add_foreign_key "movie_categories", "categories"
+  add_foreign_key "movie_categories", "movies"
   add_foreign_key "movies", "users"
 end

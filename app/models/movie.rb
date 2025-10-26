@@ -10,6 +10,8 @@ class Movie < ApplicationRecord
   validates :director, length: { maximum: 100 }, allow_nil: true
 
   has_many :comments, dependent: :destroy
+  has_many :movie_categories, dependent: :destroy
+  has_many :categories, through: :movie_categories
 
   has_one_attached :poster
   validate :poster_format

@@ -44,6 +44,14 @@
   </div>
 
   <div>
+    <%= form.label :category_ids, "Categorias", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.collection_check_boxes :category_ids, Category.ordered_by_name, :id, :name do |cb| %>
+      <div class="flex items-center">
+        <%= cb.check_box class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
+        <%= cb.label class: "ml-2 block text-sm text-gray-700" %>
+  </div>
+
+  <div>
     <%= form.label :poster, "Poster do Filme *", class: "block text-sm font-medium text-gray-700" %>
     <% if movie.poster.attached? %>
       <div class="mb-2">

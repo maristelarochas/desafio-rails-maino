@@ -16,6 +16,17 @@
         <%= button_to "Excluir", @movie, method: :delete, data: { confirm: "Tem certeza?" }, class: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" %>
       </div>
     <% end %>
+
+    <% if @movie.comments.any? %>
+      <div class="mb-6">
+        <span class="text-gray-600">Categorias:</span>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <% @movie.categories.each do |category| %>
+            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded"><%= category.name %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="mt-12">

@@ -5,6 +5,24 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.recent_first.page(params[:page]).per(6)
+
+    if params[:title].present?
+      @movies = @movies.where("title ILIKE ?", "%#{params[:title]}%")
+    end
+
+    if params[:director].present?
+      @movies = @movies.where("director ILIKE ?", "%#{params[:director]}%")
+    end
+
+    if params[:release_year].present?
+      @movies = @movies.where(release_year: params[:release_year])
+    end
+
+    if params[:category_id].present?
+      @movies = @movies.joins(:categories).where(categories: { id: params[:category_id] })
+    end
+
+    @movies = @movies.page(params[:page]).per(6)
   end
 
   def show
@@ -46,7 +64,7 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :synopsis, :release_year, :duration, :director, :poster)
+    params.require(:movie).permit(:title, :synopsis, :release_year, :duration, :director, :poster, category_ids: [])
   end
 
   def authorize_user!
