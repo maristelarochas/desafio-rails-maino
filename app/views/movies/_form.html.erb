@@ -1,0 +1,11 @@
+<%= form_with(model: movie, class: "space-y-6") do |form| %>
+  <% if movie.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+      <h2 class="font-bold mb-2"><%= pluralize(movie.errors.count, "erro") %> encontrado:</h2>
+      <ul class="list-disc list-inside">
+        <% movie.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>

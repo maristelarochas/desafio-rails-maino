@@ -13,6 +13,11 @@ user = User.find_by!(email: 'johndoe@email.com') do |user|
   user.password = 'senha123'
 end
 
+user = User.find_by!(email: 'janedoe@email.com') do |user|
+  user.name = 'Jane Doe'
+  user.password = 'senha123'
+end
+
 10.times do |i|
   Movie.find_or_create_by!(
     title: Faker::Movie.title,
