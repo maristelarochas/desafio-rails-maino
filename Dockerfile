@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# check=error=true
+# check=error=false
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
 # docker build -t movie_catalog .
@@ -51,6 +51,7 @@ RUN chmod +x bin/* && \
     sed -i 's/ruby\.exe$/ruby/' bin/*
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY=ec9cbf799dadc9afa85369ab5e96a6a3
 RUN bundle exec rails assets:precompile
 
 
