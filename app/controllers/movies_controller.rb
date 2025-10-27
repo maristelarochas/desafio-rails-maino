@@ -34,8 +34,19 @@ class MoviesController < ApplicationController
 
   def create
     @movie = current_user.movies.build(movie_params)
+    if @movie.title.present?
+      omdb_data = OmdbService.search_movies(@movie.title)
+
+      if omdb_data["Response"] == "True"
+        @movie.synopsis = omdb_data["Plot"]
+        @movie.release_year = omdb_data["Year"]
+        @movie.duration = omdb_data["Runtime"].to_s.split(" ").first.to_i
+        @movie.director = omdb_data["Director"]
+      end
+    end
+
     if @movie.save
-      redirect_to @movie, notice: "Movie was successfully saved!"
+      redirect_to @movie, notice: "Filme salvo com sucesso!"
     else
       render :new, status: :unprocessable_entity
     end
