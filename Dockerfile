@@ -51,7 +51,8 @@ RUN chmod +x bin/* && \
     sed -i 's/ruby\.exe$/ruby/' bin/*
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN RAILS_MASTER_KEY=ec9cbf799dadc9afa85369ab5e96a6a3 bundle exec rails assets:precompile
+ENV RAILS_MASTER_KEY=ec9cbf799dadc9afa85369ab5e96a6a3
+RUN bundle exec rails assets:precompile
 
 
 
